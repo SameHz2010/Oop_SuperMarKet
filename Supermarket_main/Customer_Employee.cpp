@@ -2,10 +2,14 @@
 #include "../Class headers/Customer.h"
 #include "../Class headers/Employee.h"
 
-// Các hàm định nghĩa
 string Person::getId() const
 {
     return id;
+}
+
+void Person::setId(const string &id)
+{
+    this->id = id;
 }
 
 string Person::getName() const
@@ -38,16 +42,16 @@ Customer::Customer()
 // Nhập thông tin khách hàng
 void Customer::in()
 {
-    cout << "Nhap ID: ";
+    cout << "ID: ";
     cin >> id;
-    cout << "Nhap ten: ";
+    cout << "Name: ";
     cin.ignore();
     getline(cin, name);
-    cout << "Nhap so dien thoai: ";
+    cout << "Phone number: ";
     getline(cin, phone);
-    cout << "Nhap loai thanh vien (Regular/VIP): ";
+    cout << "Member type (Regular/VIP): ";
     getline(cin, memberType);
-    cout << "Nhap diem tich luy: ";
+    cout << "Loyalty points: ";
     cin >> loyaltyPoints;
 }
 
@@ -55,10 +59,10 @@ void Customer::in()
 void Customer::out() const
 {
     cout << "ID: " << id << endl;
-    cout << "Ten: " << name << endl;
-    cout << "So dien thoai: " << phone << endl;
-    cout << "Loai thanh vien: " << memberType << endl;
-    cout << "Diem tich luy: " << loyaltyPoints << endl;
+    cout << "Name: " << name << endl;
+    cout << "Phone number: " << phone << endl;
+    cout << "Member type: " << memberType << endl;
+    cout << "Loyalty points: " << loyaltyPoints << endl;
 }
 
 // Trả về mức giảm giá dựa trên loại thành viên
@@ -115,19 +119,19 @@ Employee::Employee()
 // Nhập thông tin nhân viên
 void Employee::in()
 {
-    cout << "Nhap ID: ";
+    cout << "ID: ";
     cin >> id;
-    cout << "Nhap ten: ";
+    cout << "Name: ";
     cin.ignore();
     getline(cin, name);
-    cout << "Nhap so dien thoai: ";
+    cout << "Phone number: ";
     getline(cin, phone);
-    cout << "Nhap chuc vu: ";
+    cout << "Position: ";
     getline(cin, position);
-    cout << "Nhap luong: ";
+    cout << "Salary: ";
     cin >> salary;
     cin.ignore();
-    cout << "Nhap ngay vao lam (dd/mm/yyyy): ";
+    cout << "Hired date (dd/mm/yyyy): ";
     getline(cin, dateHired);
 }
 
@@ -135,26 +139,20 @@ void Employee::in()
 void Employee::out() const
 {
     cout << "ID: " << id << endl;
-    cout << "Ten: " << name << endl;
-    cout << "So dien thoai: " << phone << endl;
-    cout << "Chuc vu: " << position << endl;
-    cout << "Luong: " << salary << endl;
-    cout << "Ngay vao lam: " << dateHired << endl;
+    cout << "Name: " << name << endl;
+    cout << "Phone number: " << phone << endl;
+    cout << "Position: " << position << endl;
+    cout << "Salary: " << salary << endl;
+    cout << "Hired date (dd/mm/yyyy): " << dateHired << endl;
 }
 
 // Cập nhật lương
-void Employee::updateSalary(float newSalary)
+void Employee::setSalary(double newSalary)
 {
     if (newSalary >= 0)
     {
-        salary = newSalary;
+        this->salary = newSalary;
     }
-}
-
-// Thăng chức (cập nhật chức vụ)
-void Employee::promote(const string &newPosition)
-{
-    position = newPosition;
 }
 
 // Getter cho chức vụ
@@ -166,13 +164,18 @@ string Employee::getPosition() const
 // Setter cho chức vụ
 void Employee::setPosition(const string &pos)
 {
-    position = pos;
+    this->position = pos;
 }
 
 // Getter cho lương
-float Employee::getSalary() const
+double Employee::getSalary() const
 {
     return salary;
+}
+
+void Employee::setDateHired(const string &DateHired)
+{
+    this->dateHired = DateHired;
 }
 
 // Getter cho ngày vào làm
