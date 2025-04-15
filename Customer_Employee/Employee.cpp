@@ -1,68 +1,77 @@
 #include "../Class headers/Employee.h"
 
 // Constructor
-Employee::Employee() {
+Employee::Employee()
+{
     position = "Staff";
     salary = 0.0f;
     dateHired = "";
 }
 
 // Nhập thông tin nhân viên
-void Employee::in() {
-    cout << "Nhap ID: ";
+void Employee::in()
+{
+    cout << "ID: ";
     cin >> id;
-    cout << "Nhap ten: ";
+    cout << "Name: ";
     cin.ignore();
     getline(cin, name);
-    cout << "Nhap so dien thoai: ";
+    cout << "Phone number: ";
     getline(cin, phone);
-    cout << "Nhap chuc vu: ";
+    cout << "Position: ";
     getline(cin, position);
-    cout << "Nhap luong: ";
+    cout << "Salary: ";
     cin >> salary;
     cin.ignore();
-    cout << "Nhap ngay vao lam (dd/mm/yyyy): ";
+    cout << "Hired date (dd/mm/yyyy): ";
     getline(cin, dateHired);
 }
 
 // Xuất thông tin nhân viên
-void Employee::out() const {
+void Employee::out() const
+{
     cout << "ID: " << id << endl;
-    cout << "Ten: " << name << endl;
-    cout << "So dien thoai: " << phone << endl;
-    cout << "Chuc vu: " << position << endl;
-    cout << "Luong: " << salary << endl;
-    cout << "Ngay vao lam: " << dateHired << endl;
+    cout << "Name: " << name << endl;
+    cout << "Phone number: " << phone << endl;
+    cout << "Position: " << position << endl;
+    cout << "Salary: " << salary << endl;
+    cout << "Hired date (dd/mm/yyyy): " << dateHired << endl;
 }
 
 // Cập nhật lương
-void Employee::updateSalary(float newSalary) {
-    if (newSalary >= 0) {
-        salary = newSalary;
+void Employee::setSalary(double newSalary)
+{
+    if (newSalary >= 0)
+    {
+        this->salary = newSalary;
     }
 }
 
-// Thăng chức (cập nhật chức vụ)
-void Employee::promote(const string &newPosition) {
-    position = newPosition;
-}
-
 // Getter cho chức vụ
-string Employee::getPosition() const {
+string Employee::getPosition() const
+{
     return position;
 }
 
 // Setter cho chức vụ
-void Employee::setPosition(const string &pos) {
-    position = pos;
+void Employee::setPosition(const string &pos)
+{
+    this->position = pos;
 }
 
 // Getter cho lương
-float Employee::getSalary() const {
+double Employee::getSalary() const
+{
     return salary;
 }
 
+void Employee::setDateHired(const string &DateHired)
+{
+    this->dateHired = DateHired;
+}
+
 // Getter cho ngày vào làm
-string Employee::getDateHired() const {
+string Employee::getDateHired() const
+{
     return dateHired;
 }

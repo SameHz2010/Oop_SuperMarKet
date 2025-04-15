@@ -6,6 +6,11 @@ string Person::getId() const
     return id;
 }
 
+void Person::setId(const string &id)
+{
+    this->id = id;
+}
+
 string Person::getName() const
 {
     return name;

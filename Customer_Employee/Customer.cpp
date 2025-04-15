@@ -1,66 +1,77 @@
 #include "../Class headers/Customer.h"
 
 // Constructor
-Customer::Customer() {
+Customer::Customer()
+{
     memberType = "Regular"; // Mặc định là khách hàng thông thường
     loyaltyPoints = 0;
 }
 
 // Nhập thông tin khách hàng
-void Customer::in() {
-    cout << "Nhap ID: ";
+void Customer::in()
+{
+    cout << "ID: ";
     cin >> id;
-    cout << "Nhap ten: ";
+    cout << "Name: ";
     cin.ignore();
     getline(cin, name);
-    cout << "Nhap so dien thoai: ";
+    cout << "Phone number: ";
     getline(cin, phone);
-    cout << "Nhap loai thanh vien (Regular/VIP): ";
+    cout << "Member type (Regular/VIP): ";
     getline(cin, memberType);
-    cout << "Nhap diem tich luy: ";
+    cout << "Loyalty points: ";
     cin >> loyaltyPoints;
 }
 
 // Xuất thông tin khách hàng
-void Customer::out() const {
+void Customer::out() const
+{
     cout << "ID: " << id << endl;
-    cout << "Ten: " << name << endl;
-    cout << "So dien thoai: " << phone << endl;
-    cout << "Loai thanh vien: " << memberType << endl;
-    cout << "Diem tich luy: " << loyaltyPoints << endl;
+    cout << "Name: " << name << endl;
+    cout << "Phone number: " << phone << endl;
+    cout << "Member type: " << memberType << endl;
+    cout << "Loyalty points: " << loyaltyPoints << endl;
 }
 
 // Trả về mức giảm giá dựa trên loại thành viên
-float Customer::getDiscountRate() const {
-    if (memberType == "VIP") {
+float Customer::getDiscountRate() const
+{
+    if (memberType == "VIP")
+    {
         return 0.1f; // Giảm 10%
     }
     return 0.0f; // Không giảm
 }
 
 // Cộng thêm điểm tích lũy
-void Customer::addLoyaltyPoints(int points) {
-    if (points > 0) {
+void Customer::addLoyaltyPoints(int points)
+{
+    if (points > 0)
+    {
         loyaltyPoints += points;
     }
 }
 
 // Reset điểm tích lũy về 0
-void Customer::resetLoyaltyPoints() {
+void Customer::resetLoyaltyPoints()
+{
     loyaltyPoints = 0;
 }
 
 // Getter cho loại thành viên
-string Customer::getMemberType() const {
+string Customer::getMemberType() const
+{
     return memberType;
 }
 
 // Setter cho loại thành viên
-void Customer::setMemberType(const string &type) {
+void Customer::setMemberType(const string &type)
+{
     memberType = type;
 }
 
 // Getter cho điểm tích lũy
-int Customer::getLoyaltyPoints() const {
+int Customer::getLoyaltyPoints() const
+{
     return loyaltyPoints;
 }
