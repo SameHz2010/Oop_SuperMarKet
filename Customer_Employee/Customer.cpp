@@ -1,6 +1,4 @@
 #include "../Class headers/Customer.h"
-#include <iostream>
-using namespace std;
 
 // Constructor
 Customer::Customer() {

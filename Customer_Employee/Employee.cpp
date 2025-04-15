@@ -1,6 +1,4 @@
 #include "../Class headers/Employee.h"
-#include <iostream>
-using namespace std;
 
 // Constructor
 Employee::Employee() {
