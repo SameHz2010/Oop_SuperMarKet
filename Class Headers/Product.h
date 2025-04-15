@@ -1,7 +1,8 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#include <string>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 class Product

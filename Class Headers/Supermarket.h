@@ -1,13 +1,11 @@
 #ifndef SUPERMARKET_H
 #define SUPERMARKET_H
 
-#include "Customer.h"
-#include "Employee.h"
-#include "Product.h"
-#include "Cart.h"
-#include "Bill.h"
-#include <map>
-#include <vector>
+#include "../Class Headers/Customer.h"
+#include "../Class Headers/Employee.h"
+#include "../Class Headers/Product.h"
+#include "../Class Headers/Cart.h"
+#include "../Class Headers/Bill.h"
 
 class Supermarket
 {
@@ -20,12 +18,13 @@ private:
 
     string generateId(const string &prefix);
     int findProductIndex(const string &id);
-    int findCustomerIndex(const string &id);
-    int findEmployeeIndex(const string &id);
+    // int findCustomerIndex(const string &id);
+    // int findEmployeeIndex(const string &id);
     int findBillIndex(const string &id);
 
 public:
     Supermarket();
+    void pause();
 
     void addProduct();
     void editProduct();
@@ -35,19 +34,18 @@ public:
     void searchProductByName();
     void updateProductQuantity();
 
-    void addCustomer();
-    void editCustomer();
-    void removeCustomer();
-    void outCustomers() const;
-    void searchCustomerById();
-    void searchCustomerByName();
+    void addCustomer(vector<Customer> &customers);
+    void editCustomer(vector<Customer> &customers);
+    void deleteCustomer(vector<Customer> &customers);
+    void displayCustomers(const vector<Customer> &customers);
+    void searchCustomer(const vector<Customer> &customers);
 
-    void addEmployee();
-    void editEmployee();
-    void removeEmployee();
-    void outEmployees() const;
-    void searchEmployeeById();
-    void searchEmployeeByName();
+    void addEmployee(vector<Employee> &employees);
+    void editEmployee(vector<Employee> &employees);
+    void deleteEmployee(vector<Employee> &employees);
+    void displayEmployees(const vector<Employee> &employees);
+    void searchEmployee(const vector<Employee> &employees);
+    void promoteEmployee(vector<Employee> &employees);
 
     void createCart();
     void addToCart();

@@ -1,7 +1,8 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include <string>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 class Person
