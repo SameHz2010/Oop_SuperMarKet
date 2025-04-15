@@ -1171,9 +1171,9 @@ void Supermarket::inMenu()
     do
     {
         cout << "=============================================================" << endl;
-        cout << "\tSupermarket Management System" << endl;
+        cout << "\t\tSupermarket Management System" << endl;
         cout << "=============================================================" << endl;
-        cout << "0. Exit!" << endl;
+        cout << "\t\t-----Product-----" << endl;
         cout << "1. Add Product" << endl;
         cout << "2. Edit Product" << endl;
         cout << "3. Remove Product" << endl;
@@ -1183,6 +1183,7 @@ void Supermarket::inMenu()
         cout << "7. Update Product Quantity" << endl;
         cout << "8. Read List Product from data_product.csv" << endl;
         cout << "9. Write list Product to data_product.csv" << endl;
+        cout << "\t\t----Cart & Bill----" << endl;
         cout << "10. Create Cart" << endl;
         cout << "11. Add to Cart" << endl;
         cout << "12. Remove from Cart" << endl;
@@ -1195,6 +1196,7 @@ void Supermarket::inMenu()
         cout << "19. Search Bills by CustomerID" << endl;
         cout << "20. Checkout Bill" << endl;
         cout << "21. Write Bill to data_bill.csv" << endl;
+        cout << "\t\t-----Customer-----" << endl;
         cout << "22. Add Customer" << endl;
         cout << "23. Edit Customer" << endl;
         cout << "24. Delete Customer" << endl;
@@ -1202,6 +1204,7 @@ void Supermarket::inMenu()
         cout << "26. Display Customers" << endl;
         cout << "27. Read List Product from data_customer.csv" << endl;
         cout << "28. Write list Product to data_customer.csv" << endl;
+        cout << "\t\t-----Employee-----" << endl;
         cout << "29. Add Employee" << endl;
         cout << "30. Edit Employee" << endl;
         cout << "31. Delete Employee" << endl;
@@ -1210,7 +1213,9 @@ void Supermarket::inMenu()
         cout << "34. Promote Employee" << endl;
         cout << "35. Read List Product from data_employee.csv" << endl;
         cout << "36. Write List Product to data_employee.csv" << endl;
+        cout << "\t\t-------Other------" << endl;
         cout << "37. Sort Data(Product/ Customer/ Employee)" << endl;
+        cout << "38. Exit!" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
         cout << "-------------------------------------------------------------\n";
@@ -1218,9 +1223,6 @@ void Supermarket::inMenu()
 
         switch (choice)
         {
-        case 0:
-            cout << "Exiting program..." << endl;
-            return;
         case 1:
             supermarket.addProduct();
             break;
@@ -1332,6 +1334,9 @@ void Supermarket::inMenu()
         case 37:
             supermarket.sortData();
             break;
+        case 38:
+            cout << "Exiting program..." << endl;
+            return;
         default:
             cout << "Invalid choice! Please try again." << endl;
         }
