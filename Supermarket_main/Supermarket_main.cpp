@@ -93,7 +93,7 @@ void Supermarket::outProducts() const
 
 void Supermarket::writeFileCsv_product()
 {
-    ofstream outFile("data_product.csv");
+    ofstream outFile("../Data_csv/data_product.csv");
     if (!outFile)
     {
         cerr << "Failed to open file for writing!" << endl;
@@ -117,7 +117,7 @@ void Supermarket::writeFileCsv_product()
 
 void Supermarket::readFileCsv_product()
 {
-    ifstream inFile("data_product.csv");
+    ifstream inFile("../Data_csv/data_product.csv");
     if (!inFile)
     {
         cerr << "Failed to open file for reading!" << endl;
@@ -341,7 +341,7 @@ void Supermarket::displayCustomers()
 
 void Supermarket::writeFileCsv_customer()
 {
-    ofstream outFile("data_customer.csv");
+    ofstream outFile("../Data_csv/data_customer.csv");
     if (!outFile)
     {
         cerr << "Failed to open data_customer.csv for writing!" << endl;
@@ -366,7 +366,7 @@ void Supermarket::writeFileCsv_customer()
 
 void Supermarket::readFileCsv_customer()
 {
-    ifstream inFile("data_customer.csv");
+    ifstream inFile("../Data_csv/data_customer.csv");
     if (!inFile)
     {
         cerr << "Failed to open data_customer.csv for reading!" << endl;
@@ -544,7 +544,7 @@ void Supermarket::promoteEmployee()
 
 void Supermarket::writeFileCsv_employee()
 {
-    ofstream outFile("data_employee.csv");
+    ofstream outFile("../Data_csv/data_employee.csv");
     if (!outFile)
     {
         cerr << "Failed to open data_employee.csv for writing!" << endl;
@@ -570,7 +570,7 @@ void Supermarket::writeFileCsv_employee()
 
 void Supermarket::readFileCsv_employee()
 {
-    ifstream inFile("data_employee.csv");
+    ifstream inFile("../Data_csv/data_employee.csv");
     if (!inFile)
     {
         cerr << "Failed to open data_employee.csv for reading!" << endl;
@@ -1003,7 +1003,7 @@ void Supermarket::payBill()
 
 void Supermarket::writeFileCsv_bill()
 {
-    ofstream outFile("data_bill.csv");
+    ofstream outFile("../Data_csv/data_bill.csv");
     if (!outFile)
     {
         cout << "Failed to open bills.csv" << endl;
