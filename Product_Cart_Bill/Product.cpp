@@ -14,7 +14,7 @@ void Product::in()
     cin >> id;
 
     cout << "Enter product name: ";
-    cin.ignore(); // Dọn sạch buffer để tránh lỗi khi nhập chuỗi
+    cin.ignore(); 
     getline(cin, name);
 
     cout << "Enter product price: ";
@@ -54,7 +54,7 @@ bool Product::reduceQuantity(int amount)
         quantity -= amount;
         return true;
     }
-    cout << "Not enough stock!" << endl; // Thông báo lỗi khi không đủ số lượng
+    cout << "Not enough stock!" << endl; 
     return false;
 }
 
