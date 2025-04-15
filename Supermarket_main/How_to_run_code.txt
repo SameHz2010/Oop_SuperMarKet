@@ -1,4 +1,4 @@
 Mở terminal đường dẫn đến file Supermarket.cpp -> Gõ 2 lệnh bên dưới
 
-g++ Supermarket.cpp Product_Cart_Bill.cpp Customer_Employee.cpp -o supermarket
+g++ supermarket.cpp Product_Cart_Bill.cpp Customer_Employee.cpp -o supermarket
 .\supermarket.exe
