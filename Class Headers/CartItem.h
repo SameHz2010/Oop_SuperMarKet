@@ -11,6 +11,7 @@ private:
 
 public:
     CartItem();
+    CartItem(const Product &product, int quantity);
 
     void out() const;
     float getSubtotal() const;

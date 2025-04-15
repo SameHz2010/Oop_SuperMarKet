@@ -17,7 +17,6 @@ public:
 
     void in();
     void out() const;
-
     bool isAvailable() const;
     void updateQuantity(int newQuantity);
     bool reduceQuantity(int amount);
@@ -25,6 +24,7 @@ public:
     string getId() const;
     string getName() const;
     void setName(const string &name);
+    void setId(const string &id);
     float getPrice() const;
     void setPrice(float price);
     int getQuantity() const;
