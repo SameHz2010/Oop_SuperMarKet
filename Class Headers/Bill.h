@@ -21,11 +21,10 @@ public:
     Bill();
 
     void out() const;
-    void generateInvoice(const Cart &cart, float discountRate, const string &empId);
+    void generateInvoice(const Cart &cart, float discountRate, const string &employeeId);
 
     string getInvoiceId() const;
     string getCustomerId() const;
-    string getEmployeeId() const;
     const vector<CartItem> &getItems() const;
     float getSubtotal() const;
     float getDiscount() const;
@@ -33,6 +32,7 @@ public:
     float getTotal() const;
     string getDate() const;
     string getPaymentMethod() const;
+    void setDiscount(float discountRate) { discount = subtotal * discountRate; }
     void setPaymentMethod(const string &method);
 };
 

@@ -18,8 +18,6 @@ private:
 
     string generateId(const string &prefix);
     int findProductIndex(const string &id);
-    // int findCustomerIndex(const string &id);
-    // int findEmployeeIndex(const string &id);
     int findBillIndex(const string &id);
 
 public:
@@ -33,19 +31,25 @@ public:
     void searchProductById();
     void searchProductByName();
     void updateProductQuantity();
+    void readFileCsv_product();
+    void writeFileCsv_product();
 
-    void addCustomer(vector<Customer> &customers);
-    void editCustomer(vector<Customer> &customers);
-    void deleteCustomer(vector<Customer> &customers);
-    void displayCustomers(const vector<Customer> &customers);
-    void searchCustomer(const vector<Customer> &customers);
+    void addCustomer();
+    void editCustomer();
+    void deleteCustomer();
+    void displayCustomers();
+    void searchCustomer();
+    void readFileCsv_customer();
+    void writeFileCsv_customer();
 
-    void addEmployee(vector<Employee> &employees);
-    void editEmployee(vector<Employee> &employees);
-    void deleteEmployee(vector<Employee> &employees);
-    void displayEmployees(const vector<Employee> &employees);
-    void searchEmployee(const vector<Employee> &employees);
-    void promoteEmployee(vector<Employee> &employees);
+    void addEmployee();
+    void editEmployee();
+    void deleteEmployee();
+    void displayEmployees();
+    void searchEmployee();
+    void promoteEmployee();
+    void readFileCsv_employee();
+    void writeFileCsv_employee();
 
     void createCart();
     void addToCart();
@@ -55,11 +59,16 @@ public:
     void clearCart();
 
     void createBill();
-    void outBill();
+    void outBills() const;
     void searchBillById();
-    void searchBillsByCustomer();
-    void searchBillsByDate();
-    void generateSalesReport();
+    void searchBillsByCustomerId();
+    Product &getProductById(const string &productId);
+    void payBill();
+    void writeFileCsv_bill();
+
+    void sortData();
+
+    void inMenu();
 };
 
 #endif

@@ -15,7 +15,6 @@ public:
 
     void out() const;
     float getSubtotal() const;
-
     const Product &getProduct() const;
     int getQuantity() const;
     void setQuantity(int quantity);

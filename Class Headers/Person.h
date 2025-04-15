@@ -20,6 +20,7 @@ public:
     virtual void out() const = 0;
 
     string getId() const;
+    void setId(const string &id);
     string getName() const;
     void setName(const string &name);
     string getPhone() const;
