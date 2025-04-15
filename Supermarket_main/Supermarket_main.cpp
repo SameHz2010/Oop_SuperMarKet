@@ -1173,6 +1173,7 @@ void Supermarket::inMenu()
         cout << "=============================================================" << endl;
         cout << "\tSupermarket Management System" << endl;
         cout << "=============================================================" << endl;
+        cout << "0. Exit!" << endl;
         cout << "1. Add Product" << endl;
         cout << "2. Edit Product" << endl;
         cout << "3. Remove Product" << endl;
@@ -1210,15 +1211,15 @@ void Supermarket::inMenu()
         cout << "35. Read List Product from data_employee.csv" << endl;
         cout << "36. Write List Product to data_employee.csv" << endl;
         cout << "37. Sort Data(Product/ Customer/ Employee)" << endl;
-        cout << "38. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
         cout << "-------------------------------------------------------------\n";
-        cin.ignore(); // Clear newline from input buffer
+        cin.ignore();
 
         switch (choice)
         {
         case 0:
+            cout << "Exiting program..." << endl;
             return;
         case 1:
             supermarket.addProduct();
@@ -1330,9 +1331,6 @@ void Supermarket::inMenu()
             break;
         case 37:
             supermarket.sortData();
-            break;
-        case 38:
-            cout << "Exiting program..." << endl;
             break;
         default:
             cout << "Invalid choice! Please try again." << endl;
