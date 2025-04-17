@@ -1,4 +1,0 @@
-Mở terminal đường dẫn đến file Supermarket_main.cpp -> Gõ 2 lệnh bên dưới
-
-g++ Supermarket_main.cpp "..\Customer_Employee\Person.cpp" "..\Customer_Employee\Customer.cpp" "..\Customer_Employee\Employee.cpp" "..\Product_Cart_Bill\Product.cpp" "..\Product_Cart_Bill\Cart.cpp" "..\Product_Cart_Bill\CartItem.cpp" "..\Product_Cart_Bill\Bill.cpp" -o main
-.\main.exe

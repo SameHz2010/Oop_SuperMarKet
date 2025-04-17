@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Supermarket\\SupermarketUI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|e:\\supermarket\\supermarketui\\supermarketui\\services\\supermarketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|solutionrelative:supermarketui\\services\\supermarketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|e:\\supermarket\\supermarketui\\supermarketui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|solutionrelative:supermarketui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|E:\\Supermarket\\SupermarketUI\\supermarketui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|solutionrelative:supermarketui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|e:\\supermarket\\supermarketui\\supermarketui\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|solutionrelative:supermarketui\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|e:\\supermarket\\supermarketui\\supermarketui\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9D3A53-850D-4310-A04C-C0B13DE0A2AB}|SupermarketUI\\SupermarketUI.csproj|solutionrelative:supermarketui\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.cs",
+              "RelativeDocumentMoniker": "SupermarketUI\\MainForm.cs",
+              "ToolTip": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.cs [Design]",
+              "RelativeToolTip": "SupermarketUI\\MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T19:36:48.05Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainForm.Designer.cs",
+              "DocumentMoniker": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.Designer.cs",
+              "RelativeDocumentMoniker": "SupermarketUI\\MainForm.Designer.cs",
+              "ToolTip": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.Designer.cs",
+              "RelativeToolTip": "SupermarketUI\\MainForm.Designer.cs",
+              "ViewState": "AgIAAMYAAAAAAAAAAAAEwNgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T19:33:23.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\Models\\CartItem.cs",
+              "RelativeDocumentMoniker": "SupermarketUI\\Models\\CartItem.cs",
+              "ToolTip": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\Models\\CartItem.cs",
+              "RelativeToolTip": "SupermarketUI\\Models\\CartItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T16:05:37.038Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.cs",
+              "RelativeDocumentMoniker": "SupermarketUI\\MainForm.cs",
+              "ToolTip": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\MainForm.cs",
+              "RelativeToolTip": "SupermarketUI\\MainForm.cs",
+              "ViewState": "AgIAAMoBAAAA/P/////vv/UBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T16:04:30.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SupermarketService.cs",
+              "DocumentMoniker": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\Services\\SupermarketService.cs",
+              "RelativeDocumentMoniker": "SupermarketUI\\Services\\SupermarketService.cs",
+              "ToolTip": "E:\\Supermarket\\SupermarketUI\\SupermarketUI\\Services\\SupermarketService.cs",
+              "RelativeToolTip": "SupermarketUI\\Services\\SupermarketService.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAIAwwFwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T14:30:41.908Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
