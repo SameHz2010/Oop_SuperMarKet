@@ -1,6 +1,6 @@
 ID,Name,Phone,Position,Salary,DateHired
-NV001,Nguyen Van Teo,0911223344,Manager,1.5e+07,2023-01-15
-NV003,Le Hoang,0933445566,Supervisor,1.2e+07,2023-05-20
-NV005,Vo Thanh Danh,0955667788,Assistant Manager,1e+07,2024-04-01
-NV002,Tran Thi Nu,0922334455,Staff,8e+06,2023-03-01
-NV004,Do Thi Mai,0944556677,Staff,7.5e+06,2024-02-10
+NV001,Nguyen Van Teo,0911223344,Manager,1.5e+07,15-01-2023
+NV003,Le Hoang,0933445566,Supervisor,1.2e+07,20-05-2003
+NV005,Vo Thanh Danh,0955667788,Assistant Manager,1e+07,01-04-2024
+NV002,Tran Thi Nu,0922334455,Staff,8e+06,01-03-2023
+NV004,Do Thi Mai,0944556677,Staff,7.5e+06,10-02-2024
