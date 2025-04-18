@@ -22,6 +22,9 @@ namespace SupermarketUI
         private float currentDiscountRate = 0f;
         private float currentTaxRate = 0.05f;
 
+        private BindingList<Bill> _invList;
+        private BindingSource _invSrc;
+
         public MainForm()
         {
             InitializeComponent();
@@ -63,6 +66,13 @@ namespace SupermarketUI
                     LoadPosProducts();
                     RefreshCart();
                 }
+            };
+            SetupInvoiceGrid();
+            btnSearchInvoice.Click += btnSearchInvoice_Click;
+            btnRefreshInvoice.Click += (s, e) => RefreshInvoiceGrid();
+            tabControlMain.SelectedIndexChanged += (s, e) => {
+                if (tabControlMain.SelectedTab == tabPageInvoice)
+                    RefreshInvoiceGrid();
             };
         }
 
@@ -499,6 +509,131 @@ namespace SupermarketUI
                 AllowRemove = true
             };
             _empSrc.DataSource = _empList;
+        }
+
+        private void SetupInvoiceGrid()
+        {
+            _invList = new BindingList<Bill>(_svc.GetBills());
+            _invSrc = new BindingSource { DataSource = _invList };
+            dgvInvoices.AutoGenerateColumns = false;
+            dgvInvoices.DataSource = _invSrc;
+            dgvInvoices.AllowUserToAddRows = false;
+            dgvInvoices.AllowUserToDeleteRows = false;
+            dgvInvoices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInvoices.Columns.Clear();
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn { Name = "colInvoiceId", HeaderText = "Invoice ID", DataPropertyName = "InvoiceId" });
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn { Name = "colInvCust", HeaderText = "Customer ID", DataPropertyName = "CustomerId" });
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colInvDate",
+                HeaderText = "Date",
+                DataPropertyName = "Date",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    // "d" is the short date pattern (e.g. 4/18/2025). 
+                    // Or use "yyyy-MM-dd" if you prefer ISO style.
+                    Format = "d"
+                }
+            });
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn { Name = "colInvDiscount", HeaderText = "Discount", DataPropertyName = "Discount", DefaultCellStyle = new DataGridViewCellStyle { Format = "C" } });
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn { Name = "colInvTax", HeaderText = "Tax", DataPropertyName = "Tax", DefaultCellStyle = new DataGridViewCellStyle { Format = "C" } });
+            dgvInvoices.Columns.Add(new DataGridViewTextBoxColumn { Name = "colInvTotal", HeaderText = "Total", DataPropertyName = "Total", DefaultCellStyle = new DataGridViewCellStyle { Format = "C" } });
+
+            // After you finish configuring dgvInvoices, also set up the items grid:
+            dgvInvoiceItems.AutoGenerateColumns = false;
+            dgvInvoiceItems.AllowUserToAddRows = false;
+            dgvInvoiceItems.AllowUserToDeleteRows = false;
+            dgvInvoiceItems.ReadOnly = true;
+            dgvInvoiceItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvInvoiceItems.Columns.Clear();
+
+            dgvInvoiceItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colItemProdName",
+                HeaderText = "Product Name",
+                DataPropertyName = "ProductName"
+            });
+            dgvInvoiceItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colItemQty",
+                HeaderText = "Qty",
+                DataPropertyName = "Quantity"
+            });
+            dgvInvoiceItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colItemPrice",
+                HeaderText = "Unit Price",
+                DataPropertyName = "Price",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C" }
+            });
+            dgvInvoiceItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colItemSubtotal",
+                HeaderText = "Subtotal",
+                DataPropertyName = "Subtotal",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C" }
+            });
+
+            // When the user selects a different invoice, fill this grid:
+            dgvInvoices.SelectionChanged += dgvInvoices_SelectionChanged;
+
+            dgvInvoices.Columns["colInvoiceId"].FillWeight = 80;
+            dgvInvoices.Columns["colInvCust"].FillWeight = 80;
+            dgvInvoices.Columns["colInvDate"].FillWeight = 100;
+            dgvInvoices.Columns["colInvDiscount"].FillWeight = 80;
+            dgvInvoices.Columns["colInvTax"].FillWeight = 80;
+            dgvInvoices.Columns["colInvTotal"].FillWeight = 100;
+        }
+
+        private void RefreshInvoiceGrid()
+        {
+            _invList = new BindingList<Bill>(_svc.GetBills());
+            _invSrc.DataSource = _invList;
+        }
+
+        private void btnSearchInvoice_Click(object sender, EventArgs e)
+        {
+            var id = txtSearchInvoice.Text.Trim();
+            if (string.IsNullOrEmpty(id))
+                RefreshInvoiceGrid();
+            else
+            {
+                var bill = _svc.FindBill(id);
+                _invList = bill != null
+                  ? new BindingList<Bill>(new[] { bill })
+                  : new BindingList<Bill>();
+                _invSrc.DataSource = _invList;
+            }
+        }
+
+        private void dgvInvoices_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvInvoices.CurrentRow == null)
+            {
+                dgvInvoiceItems.DataSource = null;
+                return;
+            }
+
+            // Grab the selected invoice (Bill)
+            var bill = (Bill)dgvInvoices.CurrentRow.DataBoundItem;
+            if (bill == null)
+            {
+                dgvInvoiceItems.DataSource = null;
+                return;
+            }
+
+            // Project each CartItem into a simple object for the grid
+            var items = bill.Items
+                .Select(ci => new {
+                    ProductId = ci.Product.Id,
+                    ProductName = ci.Product.Name,
+                    Quantity = ci.Quantity,
+                    Price = ci.Product.Price,
+                    Subtotal = ci.Subtotal
+                })
+                .ToList();
+
+            dgvInvoiceItems.DataSource = items;
         }
     }
 }

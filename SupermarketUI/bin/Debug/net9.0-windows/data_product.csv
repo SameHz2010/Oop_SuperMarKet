@@ -1,13 +1,13 @@
 Id,Name,Price,Quantity
 P001,Apple,10.5,90
-P002,Banana,5,78
-P003,Milk,20,46
+P002,Banana,5,74
+P003,Milk,20,43
 P004,Bread,15.5,57
 P005,Chocolate,25,29
 P006,Water Bottle,8,200
-P007,Coffee,35,37
+P007,Coffee,35,34
 P008,Instant Noodles,12,120
-P009,Eggs,18,46
+P009,Eggs,18,43
 P010,Toothpaste,22,70
 P011,Toy,3000,6
-P012,Babythree,300,10
+P012,Babythree,300,6

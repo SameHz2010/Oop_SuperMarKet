@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.VisualBasic.FileIO;
+
 
 namespace SupermarketUI.Services
 {
@@ -89,43 +91,48 @@ namespace SupermarketUI.Services
             }
             if (File.Exists(_billFile))
             {
-                // 1) Read & ignore blank lines
-                var lines = File.ReadAllLines(_billFile)
-                                .Where(l => !string.IsNullOrWhiteSpace(l))
-                                .ToArray();
-
-                // 2) Skip the header row
-                foreach (var line in lines.Skip(1))
+                // Use TextFieldParser to handle commas and quoted Items
+                using var parser = new TextFieldParser(_billFile)
                 {
-                    // 3) Split on ';' and require at least 8 fields
-                    var f = line.Split(';');
-                    if (f.Length < 8)
-                        continue;   // skip anything malformed
+                    TextFieldType = FieldType.Delimited,
+                    HasFieldsEnclosedInQuotes = true
+                };
+                parser.SetDelimiters(",");
 
-                    // 4) Parse safely
+                // Skip header
+                if (!parser.EndOfData) parser.ReadFields();
+
+                while (!parser.EndOfData)
+                {
+                    var f = parser.ReadFields();
+                    // f[0]=InvoiceId, f[1]=CustomerId, f[2]=Date,
+                    // f[3]=PaymentMethod, f[4]=Items (quoted), f[5]=Discount, f[6]=Tax, f[7]=Total
+
                     var bill = new Bill
                     {
                         InvoiceId = f[0],
                         CustomerId = f[1],
-                        EmployeeId = f[2],
-                        Date = DateTime.Parse(f[3]),
-                        PaymentMethod = f[4]
+                        EmployeeId = "",              // you removed it
+                        Date = DateTime.Parse(f[2]),
+                        PaymentMethod = f[3]
                     };
 
-                    // Items are "prodId,qty|prodId,qty|..."
-                    foreach (var item in f[5].Split('|'))
+                    // Items come in as e.g. "P001,2|P003,1"
+                    var itemsField = f[4].Trim('"');
+                    foreach (var part in itemsField.Split('|'))
                     {
-                        var parts = item.Split(',');
-                        if (parts.Length != 2)
-                            continue;
-                        var p = _products.FirstOrDefault(x => x.Id == parts[0]);
-                        if (p != null)
-                            bill.Items.Add(new CartItem(p, int.Parse(parts[1])));
+                        var p = part.Split(',');
+                        if (p.Length == 2)
+                        {
+                            var prod = _products.FirstOrDefault(x => x.Id == p[0]);
+                            if (prod != null)
+                                bill.Items.Add(new CartItem(prod, int.Parse(p[1])));
+                        }
                     }
 
-                    // discount & tax
-                    if (float.TryParse(f[6], out var d)) bill.Discount = d;
-                    if (float.TryParse(f[7], out var t)) bill.Tax = t;
+                    // Discount, Tax, Total
+                    if (float.TryParse(f[5], out var d)) bill.Discount = d;
+                    if (float.TryParse(f[6], out var t)) bill.Tax = t;
 
                     _bills.Add(bill);
                 }
