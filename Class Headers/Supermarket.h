@@ -16,7 +16,6 @@ private:
     vector<Bill> bills;
     map<string, Cart> activeCarts;
 
-    string generateId(const string &prefix);
     int findProductIndex(const string &id);
     int findBillIndex(const string &id);
 
