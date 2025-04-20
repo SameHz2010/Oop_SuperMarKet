@@ -11,8 +11,7 @@ class Supermarket
 {
 private:
     vector<Product> inventory;
-    vector<Customer> customers;
-    vector<Employee> employees;
+    vector<Person *> people;
     vector<Bill> bills;
     map<string, Cart> activeCarts;
 
@@ -65,6 +64,9 @@ public:
     void payBill();
     void writeFileCsv_bill();
 
+    void sortProducts();
+    void sortCustomers();
+    void sortEmployees();
     void sortData();
 
     void inMenu();
