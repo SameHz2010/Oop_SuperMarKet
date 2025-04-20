@@ -70,6 +70,10 @@ void Supermarket::removeProduct()
 
 void Supermarket::outProducts() const
 {
+    cout << "----------------------- Product List ------------------------" << endl;
+    cout << left << setw(10) << "ID" << setw(20) << "Name"
+         << setw(10) << "Price" << setw(10) << "Quantity" << endl;
+
     if (inventory.empty())
     {
         cout << "-------------------------------------------------------------" << endl;
@@ -118,6 +122,8 @@ void Supermarket::readFileCsv_product()
         return;
     }
 
+    inventory.clear();
+
     string line;
     getline(inFile, line);
 
@@ -151,6 +157,9 @@ void Supermarket::searchProductById()
     string id;
     cout << "Enter product ID to search: ";
     cin >> id;
+    cout << "-------------------------------------------------------------" << endl;
+    cout << left << setw(10) << "ID" << setw(20) << "Name"
+         << setw(10) << "Price" << setw(10) << "Quantity" << endl;
 
     int index = findProductIndex(id);
     if (index != -1)
@@ -170,6 +179,9 @@ void Supermarket::searchProductByName()
     string name;
     cout << "Enter product name to search: ";
     getline(cin, name);
+    cout << "-------------------------------------------------------------" << endl;
+    cout << left << setw(10) << "ID" << setw(20) << "Name"
+         << setw(10) << "Price" << setw(10) << "Quantity" << endl;
 
     bool found = false;
     for (const auto &product : inventory)
@@ -222,36 +234,36 @@ void Supermarket::pause()
 
 void Supermarket::addCustomer()
 {
-    Customer c;
-    c.in();
-    customers.push_back(c);
-    cout << "-------------------------------------------------------------" << endl;
-    cout << "Customer added successfully!" << endl;
-    cout << "-------------------------------------------------------------" << endl;
+    Customer *customer = new Customer();
+    customer->in();
+    people.push_back(customer);
 }
 
 void Supermarket::editCustomer()
 {
     string id;
-    cout << "Nhap ID khach hang can sua: ";
+    cout << "Enter the ID of the customer to edit: ";
     cin >> id;
     bool found = false;
-    for (auto &c : customers)
+
+    for (auto &p : people)
     {
-        if (c.getId() == id)
+        Customer *customer = dynamic_cast<Customer *>(p);
+        if (customer && customer->getId() == id)
         {
-            cout << "Thong tin cu:\n";
-            c.out();
-            cout << "\nNhap thong tin moi:\n";
-            c.in();
+            cout << "Current information:\n";
+            customer->out();
+            cout << "\nEnter the new information:\n";
+            customer->in();
             found = true;
             break;
         }
     }
+
     if (!found)
     {
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay khach hang!\n";
+        cout << "Customer not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
     else
@@ -265,21 +277,35 @@ void Supermarket::editCustomer()
 void Supermarket::deleteCustomer()
 {
     string id;
-    cout << "Nhap ID khach hang can xoa: ";
+    cout << "Enter the ID of the customer to delete: ";
     cin >> id;
-    auto it = remove_if(customers.begin(), customers.end(), [&](Customer &c)
-                        { return c.getId() == id; });
-    if (it != customers.end())
+    bool found = false;
+
+    for (auto it = people.begin(); it != people.end();)
     {
-        customers.erase(it, customers.end());
+        Customer *customer = dynamic_cast<Customer *>(*it);
+        if (customer && customer->getId() == id)
+        {
+            delete customer;
+            it = people.erase(it);
+            found = true;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    if (found)
+    {
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Da xoa thanh cong!\n";
+        cout << "Customer deleted successfully!" << endl;
         cout << "-------------------------------------------------------------" << endl;
     }
     else
     {
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay khach hang!\n";
+        cout << "Customer not found!" << endl;
         cout << "-------------------------------------------------------------" << endl;
     }
 }
@@ -287,79 +313,117 @@ void Supermarket::deleteCustomer()
 void Supermarket::searchCustomer()
 {
     int choice;
-    cout << "1. Tim theo ID\n2. Tim theo ten\nChon: ";
+    cout << "1. Search by ID\n2. Search by name\nChoose: ";
     cin >> choice;
     cin.ignore();
+
     if (choice == 1)
     {
         string id;
-        cout << "Nhap ID: ";
+        cout << "Enter ID: ";
         cin >> id;
-        for (const auto &c : customers)
+        for (const auto &p : people)
         {
-            if (c.getId() == id)
+            Customer *customer = dynamic_cast<Customer *>(p);
+            if (customer && customer->getId() == id)
             {
-                c.out();
+                customer->out();
                 return;
             }
         }
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay khach hang!\n";
+        cout << "Customer not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
     else
     {
         string name;
-        cout << "Nhap ten: ";
+        cout << "Enter name: ";
         getline(cin, name);
-        for (const auto &c : customers)
+        bool found = false;
+        for (const auto &p : people)
         {
-            if (c.getName().find(name) != string::npos)
+            Customer *customer = dynamic_cast<Customer *>(p);
+            if (customer && customer->getName().find(name) != string::npos)
             {
-                c.out();
+                customer->out();
                 cout << "-------------------------------------------------------------\n";
+                found = true;
             }
+        }
+        if (!found)
+        {
+            cout << "-------------------------------------------------------------" << endl;
+            cout << "No customers found with the given name.\n";
+            cout << "-------------------------------------------------------------" << endl;
         }
     }
 }
 
 void Supermarket::displayCustomers()
 {
-    cout << "------------------- Danh sach khach hang --------------------\n";
-    for (const auto &c : customers)
+    cout << "------------------- Customer List --------------------\n";
+    cout << left << setw(10) << "ID" << setw(20) << "Name" << setw(15) << "Phone"
+         << setw(15) << "MemberType" << setw(10) << "LoyaltyPoint" << endl;
+    for (const auto &p : people)
     {
-        c.out();
+        Customer *customer = dynamic_cast<Customer *>(p);
+        if (customer)
+        {
+            customer->out();
+        }
     }
     cout << "-------------------------------------------------------------\n";
 }
 
 void Supermarket::writeFileCsv_customer()
 {
-    ofstream outFile("../Data_csv/data_customer.csv");
-    if (!outFile)
+    const string filePath = "../Data_csv/data_customer.csv";
+    ofstream outFile(filePath);
+
+    if (!outFile.is_open())
     {
-        cerr << "Failed to open data_customer.csv for writing!" << endl;
+        cerr << "Failed to open " << filePath << " for writing!" << endl;
         return;
     }
 
     outFile << "ID,Name,Phone,MemberType,LoyaltyPoints\n";
-    for (const auto &customer : customers)
+
+    int count = 0;
+    for (const auto &p : people)
     {
-        outFile << customer.getId() << ","
-                << customer.getName() << ","
-                << customer.getPhone() << ","
-                << customer.getMemberType() << ","
-                << customer.getLoyaltyPoints() << "\n";
+        if (Customer *customer = dynamic_cast<Customer *>(p))
+        {
+            outFile << customer->getId() << ","
+                    << customer->getName() << ","
+                    << customer->getPhone() << ","
+                    << customer->getMemberType() << ","
+                    << customer->getLoyaltyPoints() << "\n";
+            count++;
+        }
     }
 
     outFile.close();
+
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Saved " << customers.size() << " customers to data_customer.csv." << endl;
+    cout << "Saved " << count << " customers to data_customer.csv" << endl;
     cout << "-------------------------------------------------------------" << endl;
 }
 
 void Supermarket::readFileCsv_customer()
 {
+    for (auto it = people.begin(); it != people.end();)
+    {
+        Customer *customer = dynamic_cast<Customer *>(*it);
+        if (customer)
+        {
+            delete customer;
+            it = people.erase(it);
+        }
+        else
+            ++it;
+    }
+
     ifstream inFile("../Data_csv/data_customer.csv");
     if (!inFile)
     {
@@ -368,7 +432,7 @@ void Supermarket::readFileCsv_customer()
     }
 
     string line;
-    getline(inFile, line);
+    getline(inFile, line); // Skip the header line
 
     while (getline(inFile, line))
     {
@@ -379,29 +443,41 @@ void Supermarket::readFileCsv_customer()
         getline(ss, name, ',');
         getline(ss, phone, ',');
         getline(ss, memberType, ',');
-        getline(ss, loyaltyPointsStr, ',');
+        getline(ss, loyaltyPointsStr);
 
-        Customer customer;
-        customer.setId(id);
-        customer.setName(name);
-        customer.setPhone(phone);
-        customer.setMemberType(memberType);
-        customer.addLoyaltyPoints(atoi(loyaltyPointsStr.c_str()));
+        // Convert loyaltyPointsStr to an integer
+        int loyaltyPoints = 0;
+        try
+        {
+            loyaltyPoints = stoi(loyaltyPointsStr);
+        }
+        catch (const exception &e)
+        {
+            cerr << "Error converting loyalty points for customer with ID " << id << ": " << e.what() << endl;
+            continue; // Skip this customer if there's an error in the data
+        }
 
-        customers.push_back(customer);
+        Customer *customer = new Customer();
+        customer->setId(id);
+        customer->setName(name);
+        customer->setPhone(phone);
+        customer->setMemberType(memberType);
+        customer->addLoyaltyPoints(loyaltyPoints);
+
+        people.push_back(customer);
     }
 
     inFile.close();
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Loaded " << customers.size() << " customers from data_customer.csv." << endl;
+    cout << "Loaded customers from data_customer.csv" << endl;
     cout << "-------------------------------------------------------------" << endl;
 }
 
 void Supermarket::addEmployee()
 {
-    Employee e;
-    e.in();
-    employees.push_back(e);
+    Employee *e = new Employee();
+    e->in();
+    people.push_back(e);
     cout << "-------------------------------------------------------------" << endl;
     cout << "Employee added successfully!" << endl;
     cout << "-------------------------------------------------------------" << endl;
@@ -410,17 +486,18 @@ void Supermarket::addEmployee()
 void Supermarket::editEmployee()
 {
     string id;
-    cout << "Nhap ID nhan vien can sua: ";
+    cout << "Enter employee ID to edit: ";
     cin >> id;
     bool found = false;
-    for (auto &e : employees)
+    for (auto &p : people)
     {
-        if (e.getId() == id)
+        Employee *e = dynamic_cast<Employee *>(p);
+        if (e && e->getId() == id)
         {
-            cout << "Thong tin cu:\n";
-            e.out();
-            cout << "\nNhap thong tin moi:\n";
-            e.in();
+            cout << "Current info:\n";
+            e->out();
+            cout << "\nEnter new information:\n";
+            e->in();
             found = true;
             break;
         }
@@ -428,7 +505,7 @@ void Supermarket::editEmployee()
     if (!found)
     {
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay nhan vien!\n";
+        cout << "Employee not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
     else
@@ -442,21 +519,23 @@ void Supermarket::editEmployee()
 void Supermarket::deleteEmployee()
 {
     string id;
-    cout << "Nhap ID nhan vien can xoa: ";
+    cout << "Enter employee ID to delete: ";
     cin >> id;
-    auto it = remove_if(employees.begin(), employees.end(), [&](Employee &e)
-                        { return e.getId() == id; });
-    if (it != employees.end())
+    auto it = remove_if(people.begin(), people.end(), [&](Person *p)
+                        { 
+                            Employee* e = dynamic_cast<Employee*>(p);
+                            return e && e->getId() == id; });
+    if (it != people.end())
     {
-        employees.erase(it, employees.end());
+        people.erase(it, people.end());
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Da xoa thanh cong!\n";
+        cout << "Employee deleted successfully!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
     else
     {
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay nhan vien!\n";
+        cout << "Employee not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
 }
@@ -464,36 +543,38 @@ void Supermarket::deleteEmployee()
 void Supermarket::searchEmployee()
 {
     int choice;
-    cout << "1. Tim theo ID\n2. Tim theo ten\nChon: ";
+    cout << "1. Search by ID\n2. Search by Name\nChoose: ";
     cin >> choice;
     cin.ignore();
     if (choice == 1)
     {
         string id;
-        cout << "Nhap ID: ";
+        cout << "Enter ID: ";
         cin >> id;
-        for (const auto &e : employees)
+        for (const auto &p : people)
         {
-            if (e.getId() == id)
+            Employee *e = dynamic_cast<Employee *>(p);
+            if (e && e->getId() == id)
             {
-                e.out();
+                e->out();
                 return;
             }
         }
         cout << "-------------------------------------------------------------" << endl;
-        cout << "Khong tim thay nhan vien!\n";
+        cout << "Employee not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
     else
     {
         string name;
-        cout << "Nhap ten: ";
+        cout << "Enter name: ";
         getline(cin, name);
-        for (const auto &e : employees)
+        for (const auto &p : people)
         {
-            if (e.getName().find(name) != string::npos)
+            Employee *e = dynamic_cast<Employee *>(p);
+            if (e && e->getName().find(name) != string::npos)
             {
-                e.out();
+                e->out();
                 cout << "-----------------\n";
             }
         }
@@ -502,10 +583,16 @@ void Supermarket::searchEmployee()
 
 void Supermarket::displayEmployees()
 {
-    cout << "--------------------- Danh sach nhan vien -----------------------\n";
-    for (const auto &e : employees)
+    cout << "---------------------- Employee List -------------------------\n";
+    cout << left << setw(10) << "ID" << setw(20) << "Name" << setw(15) << "Phone"
+         << setw(20) << "Position" << setw(15) << "Salary" << setw(10) << "DateHired" << endl;
+    for (const auto &p : people)
     {
-        e.out();
+        Employee *e = dynamic_cast<Employee *>(p);
+        if (e)
+        {
+            e->out();
+        }
     }
     cout << "-------------------------------------------------------------\n";
 }
@@ -513,24 +600,30 @@ void Supermarket::displayEmployees()
 void Supermarket::promoteEmployee()
 {
     string id, newPos;
-    cout << "Nhap ID nhan vien: ";
+    double newSalary;
+    cout << "Enter employee ID: ";
     cin >> id;
     cin.ignore();
-    cout << "Nhap chuc vu moi: ";
+    cout << "Enter new position: ";
     getline(cin, newPos);
-    for (auto &e : employees)
+    cout << "Enter new salary: ";
+    cin >> newSalary;
+
+    for (auto &p : people)
     {
-        if (e.getId() == id)
+        Employee *e = dynamic_cast<Employee *>(p);
+        if (e && e->getId() == id)
         {
-            e.setPosition(newPos);
+            e->setPosition(newPos);
+            e->setSalary(newSalary);
             cout << "-------------------------------------------------------------" << endl;
-            cout << "Da phan quyen thanh cong!\n";
+            cout << "Employee promoted successfully!\n";
             cout << "-------------------------------------------------------------" << endl;
             return;
         }
     }
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Khong tim thay nhan vien!\n";
+    cout << "Employee not found!\n";
     cout << "-------------------------------------------------------------" << endl;
 }
 
@@ -544,24 +637,40 @@ void Supermarket::writeFileCsv_employee()
     }
 
     outFile << "ID,Name,Phone,Position,Salary,DateHired\n";
-    for (const auto &employee : employees)
+    for (const auto &p : people)
     {
-        outFile << employee.getId() << ","
-                << employee.getName() << ","
-                << employee.getPhone() << ","
-                << employee.getPosition() << ","
-                << employee.getSalary() << ","
-                << employee.getDateHired() << "\n";
+        Employee *e = dynamic_cast<Employee *>(p);
+        if (e)
+        {
+            outFile << e->getId() << ","
+                    << e->getName() << ","
+                    << e->getPhone() << ","
+                    << e->getPosition() << ","
+                    << e->getSalary() << ","
+                    << e->getDateHired() << "\n";
+        }
     }
 
     outFile.close();
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Saved " << employees.size() << " employees to data_employee.csv." << endl;
+    cout << "Saved employees to data_employee.csv" << endl;
     cout << "-------------------------------------------------------------" << endl;
 }
 
 void Supermarket::readFileCsv_employee()
 {
+    for (auto it = people.begin(); it != people.end();)
+    {
+        Employee *employee = dynamic_cast<Employee *>(*it);
+        if (employee)
+        {
+            delete employee;
+            it = people.erase(it);
+        }
+        else
+            ++it;
+    }
+
     ifstream inFile("../Data_csv/data_employee.csv");
     if (!inFile)
     {
@@ -583,20 +692,32 @@ void Supermarket::readFileCsv_employee()
         getline(ss, position, ',');
         getline(ss, salaryStr, ',');
         getline(ss, dateHired, ',');
-        Employee employee;
-        employee.setId(id);
-        employee.setName(name);
-        employee.setPhone(phone);
-        employee.setPosition(position);
-        employee.setSalary(stof(salaryStr));
-        employee.setDateHired(dateHired);
 
-        employees.push_back(employee);
+        float salary = 0.0f;
+        try
+        {
+            salary = stof(salaryStr);
+        }
+        catch (const exception &e)
+        {
+            cerr << "Error converting salary for employee with ID " << id << ": " << e.what() << endl;
+            continue;
+        }
+
+        Employee *e = new Employee();
+        e->setId(id);
+        e->setName(name);
+        e->setPhone(phone);
+        e->setPosition(position);
+        e->setSalary(salary);
+        e->setDateHired(dateHired);
+
+        people.push_back(e);
     }
 
     inFile.close();
     cout << "-------------------------------------------------------------" << endl;
-    cout << "Loaded " << employees.size() << " employees from data_employee.csv." << endl;
+    cout << "Loaded employees from data_employee.csv" << endl;
     cout << "-------------------------------------------------------------" << endl;
 }
 
@@ -607,9 +728,10 @@ void Supermarket::createCart()
     getline(cin >> ws, customerId);
 
     bool customerExists = false;
-    for (const auto &customer : customers)
+    for (const auto &p : people)
     {
-        if (customer.getId() == customerId)
+        Customer *customer = dynamic_cast<Customer *>(p);
+        if (customer && customer->getId() == customerId)
         {
             customerExists = true;
             break;
@@ -621,7 +743,7 @@ void Supermarket::createCart()
         Customer newCustomer;
         cout << "Customer not found. Please enter customer details.\n";
         newCustomer.in();
-        customers.push_back(newCustomer);
+        people.push_back(new Customer(newCustomer));
         cout << "New customer added.\n";
     }
 
@@ -765,7 +887,10 @@ void Supermarket::outCart()
         return;
     }
 
+    cout << left << setw(10) << "ID" << setw(20) << "Name"
+         << setw(10) << "Price" << setw(10) << "Quantity" << endl;
     activeCarts[customerId].out();
+    cout << "--------------------------" << endl;
 }
 
 void Supermarket::clearCart()
@@ -1003,79 +1128,230 @@ void Supermarket::writeFileCsv_bill()
 
 bool compareProduct(const Product &a, const Product &b, int sortType, bool ascending)
 {
-    if (sortType == 1)
+    if (!ascending)
+        return compareProduct(b, a, sortType, true);
+
+    switch (sortType)
     {
-        return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
+    case 1:
+        return a.getId() < b.getId();
+    case 2:
+        return a.getPrice() < b.getPrice();
+    default:
+        return a.getId() < b.getId();
     }
-    else if (sortType == 2)
-    {
-        return ascending ? a.getPrice() < b.getPrice() : a.getPrice() > b.getPrice();
-    }
-    return false;
 }
 
-bool compareCustomer(const Customer &a, const Customer &b, int sortType, bool ascending)
+bool compareCustomer(const Customer *a, const Customer *b, int sortType, bool ascending)
 {
-    if (sortType == 1)
+    bool result = false;
+
+    switch (sortType)
     {
-        return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
+    case 1:
+        result = a->getId() < b->getId();
+        break;
+    case 2:
+        result = a->getName() < b->getName();
+        break;
+    case 3:
+        result = a->getMemberType() < b->getMemberType();
+        break;
+    case 4:
+        result = a->getLoyaltyPoints() < b->getLoyaltyPoints();
+        break;
+    default:
+        result = a->getId() < b->getId();
+        break;
     }
-    else if (sortType == 2)
-    {
-        return ascending ? a.getMemberType() < b.getMemberType() : a.getMemberType() > b.getMemberType();
-    }
-    else if (sortType == 3)
-    {
-        return ascending ? a.getLoyaltyPoints() < b.getLoyaltyPoints() : a.getLoyaltyPoints() > b.getLoyaltyPoints();
-    }
-    return false;
+
+    return ascending ? result : !result;
 }
 
-int getPositionPriority(const std::string &position, const std::vector<std::string> &positionOrder)
+bool compareEmployee(const Employee *a, const Employee *b, int sortType, bool ascending)
 {
-    for (int i = 0; i < positionOrder.size(); ++i)
+    bool result = false;
+
+    switch (sortType)
     {
-        if (positionOrder[i] == position)
+    case 1:
+        result = a->getId() < b->getId();
+        break;
+    case 2:
+    {
+        map<string, int> positionRank = {
+            {"Manager", 1},
+            {"Assistant Manager", 2},
+            {"Supervisor", 3},
+            {"Staff", 4}};
+
+        int rankA = positionRank.count(a->getPosition()) ? positionRank[a->getPosition()] : 999;
+        int rankB = positionRank.count(b->getPosition()) ? positionRank[b->getPosition()] : 999;
+
+        result = rankA > rankB;
+        break;
+    }
+    case 3:
+        result = a->getSalary() < b->getSalary();
+        break;
+    case 4:
+    {
+        string dateA = a->getDateHired();
+        string dateB = b->getDateHired();
+        int dayA = stoi(dateA.substr(0, 2));
+        int monthA = stoi(dateA.substr(3, 2));
+        int yearA = stoi(dateA.substr(6, 4));
+        int dayB = stoi(dateB.substr(0, 2));
+        int monthB = stoi(dateB.substr(3, 2));
+        int yearB = stoi(dateB.substr(6, 4));
+
+        if (yearA != yearB)
+            result = yearA > yearB;
+        else if (monthA != monthB)
+            result = monthA > monthB;
+        else
+            result = dayA > dayB;
+        break;
+    }
+    default:
+        result = a->getId() < b->getId();
+        break;
+    }
+
+    return ascending ? result : !result;
+}
+
+void Supermarket::sortProducts()
+{
+    int sortType;
+    bool ascending;
+    cout << "Sort Products by:\n1. ID\n2. Price\nEnter your choice: ";
+    cin >> sortType;
+    cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
+    cin >> ascending;
+
+    sort(inventory.begin(), inventory.end(), [sortType, ascending](const Product &a, const Product &b)
+         { return compareProduct(a, b, sortType, ascending); });
+
+    cout << "-------------------------------------------------------------" << endl;
+    cout << "Products sorted.\n";
+    cout << "-------------------------------------------------------------" << endl;
+}
+
+void Supermarket::sortCustomers()
+{
+    if (people.empty())
+    {
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "No customers to sort!" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        return;
+    }
+
+    int choice;
+    cout << "Sort customers by:\n";
+    cout << "1. ID\n";
+    cout << "2. Name\n";
+    cout << "3. Member Type\n";
+    cout << "4. Loyalty Points\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    bool ascending = true;
+    int orderChoice;
+    cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
+    cin >> orderChoice;
+    cin.ignore();
+
+    if (orderChoice == 0)
+    {
+        ascending = false;
+    }
+
+    vector<Customer *> customerList;
+    for (Person *p : people)
+    {
+        if (Customer *cust = dynamic_cast<Customer *>(p))
         {
-            return i;
+            customerList.push_back(cust);
         }
     }
-    return -1;
+
+    sort(customerList.begin(), customerList.end(), [choice, ascending](const Customer *a, const Customer *b)
+         { return compareCustomer(a, b, choice, ascending); });
+
+    vector<Person *> sortedPeople;
+    for (Person *p : people)
+    {
+        if (!dynamic_cast<Customer *>(p))
+        {
+            sortedPeople.push_back(p);
+        }
+    }
+    sortedPeople.insert(sortedPeople.end(), customerList.begin(), customerList.end());
+    people = sortedPeople;
+
+    cout << "-------------------------------------------------------------" << endl;
+    cout << "Customers sorted successfully!" << endl;
+    cout << "-------------------------------------------------------------" << endl;
 }
 
-int dateToInt(const std::string &date)
+void Supermarket::sortEmployees()
 {
-    int year = std::stoi(date.substr(0, 4));
-    int month = std::stoi(date.substr(5, 2));
-    int day = std::stoi(date.substr(8, 2));
-    return (year * 10000) + (month * 100) + day;
-}
+    if (people.empty())
+    {
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "No employees to sort!" << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        return;
+    }
 
-bool compareEmployee(const Employee &a, const Employee &b, int sortType, bool ascending)
-{
-    if (sortType == 4)
-    {
-        int dateA = dateToInt(a.getDateHired());
-        int dateB = dateToInt(b.getDateHired());
-        return ascending ? dateA > dateB : dateA < dateB;
-    }
-    else if (sortType == 1)
-    {
-        return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
-    }
-    else if (sortType == 2)
-    {
-        static const vector<string> positionOrder = {"Staff", "Supervisor", "Manager", "Assistant Manager"};
+    int choice;
+    cout << "Sort employees by:\n";
+    cout << "1. ID\n";
+    cout << "2. Position (Manager > Assistant Manager > ... > Staff)\n";
+    cout << "3. Salary\n";
+    cout << "4. Date Hired (DD-MM-YYYY)\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
 
-        int priorityA = getPositionPriority(a.getPosition(), positionOrder);
-        int priorityB = getPositionPriority(b.getPosition(), positionOrder);
-        return ascending ? priorityA < priorityB : priorityA > priorityB;
-    }
-    else if (sortType == 3)
+    bool ascending = true;
+    int orderChoice;
+    cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
+    cin >> orderChoice;
+    cin.ignore();
+
+    if (orderChoice == 0)
     {
-        return ascending ? a.getSalary() < b.getSalary() : a.getSalary() > b.getSalary();
+        ascending = false;
     }
-    return false;
+
+    vector<Employee *> employeeList;
+    for (Person *p : people)
+    {
+        if (Employee *emp = dynamic_cast<Employee *>(p))
+        {
+            employeeList.push_back(emp);
+        }
+    }
+
+    sort(employeeList.begin(), employeeList.end(), [choice, ascending](const Employee *a, const Employee *b)
+         { return compareEmployee(a, b, choice, ascending); });
+
+    vector<Person *> sortedPeople;
+    for (Person *p : people)
+    {
+        if (!dynamic_cast<Employee *>(p))
+        {
+            sortedPeople.push_back(p);
+        }
+    }
+    sortedPeople.insert(sortedPeople.end(), employeeList.begin(), employeeList.end());
+    people = sortedPeople;
+
+    cout << "-------------------------------------------------------------" << endl;
+    cout << "Employees sorted successfully!" << endl;
+    cout << "-------------------------------------------------------------" << endl;
 }
 
 void Supermarket::sortData()
@@ -1085,46 +1361,16 @@ void Supermarket::sortData()
     cout << "Enter your choice: ";
     cin >> choice;
 
-    int sortType;
-    bool ascending;
-
     switch (choice)
     {
     case 1:
-        cout << "Sort Products by:\n1. ID\n2. Price\nEnter your choice: ";
-        cin >> sortType;
-        cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
-        cin >> ascending;
-        sort(inventory.begin(), inventory.end(),
-             [&](const Product &a, const Product &b)
-             { return compareProduct(a, b, sortType, ascending); });
-        cout << "-------------------------------------------------------------" << endl;
-        cout << "Products sorted.\n";
-        cout << "-------------------------------------------------------------" << endl;
+        sortProducts();
         break;
     case 2:
-        cout << "Sort Customers by:\n1. ID\n2. Member Type\n3. Loyalty Points\nEnter your choice: ";
-        cin >> sortType;
-        cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
-        cin >> ascending;
-        sort(customers.begin(), customers.end(),
-             [&](const Customer &a, const Customer &b)
-             { return compareCustomer(a, b, sortType, ascending); });
-        cout << "-------------------------------------------------------------" << endl;
-        cout << "Customers sorted.\n";
-        cout << "-------------------------------------------------------------" << endl;
+        sortCustomers();
         break;
     case 3:
-        cout << "Sort Employees by:\n1. ID\n2. Position\n3. Salary\n4. Date Hired\nEnter your choice: ";
-        cin >> sortType;
-        cout << "Sort order:\n0. Descending\n1. Ascending\nEnter your choice: ";
-        cin >> ascending;
-        sort(employees.begin(), employees.end(),
-             [&](const Employee &a, const Employee &b)
-             { return compareEmployee(a, b, sortType, ascending); });
-        cout << "-------------------------------------------------------------" << endl;
-        cout << "Employees sorted.\n";
-        cout << "-------------------------------------------------------------" << endl;
+        sortEmployees();
         break;
     default:
         cout << "-------------------------------------------------------------" << endl;
@@ -1188,6 +1434,7 @@ void Supermarket::inMenu()
         cout << "\t\t-------Other------" << endl;
         cout << "37. Sort Data(Product/ Customer/ Employee)" << endl;
         cout << "38. Exit!" << endl;
+        cout << "-------------------------------------------------------------\n";
         cout << "Enter your choice: ";
         cin >> choice;
         cout << "-------------------------------------------------------------\n";
