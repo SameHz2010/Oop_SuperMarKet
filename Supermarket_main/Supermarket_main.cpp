@@ -543,7 +543,7 @@ void Supermarket::writeFileCsv_employee()
         return;
     }
 
-    outFile << "ID,Name,Phone,Position,Salary,DateHired\n"; 
+    outFile << "ID,Name,Phone,Position,Salary,DateHired\n";
     for (const auto &employee : employees)
     {
         outFile << employee.getId() << ","
@@ -551,7 +551,7 @@ void Supermarket::writeFileCsv_employee()
                 << employee.getPhone() << ","
                 << employee.getPosition() << ","
                 << employee.getSalary() << ","
-                << employee.getDateHired() << "\n"; 
+                << employee.getDateHired() << "\n";
     }
 
     outFile.close();
@@ -570,26 +570,26 @@ void Supermarket::readFileCsv_employee()
     }
 
     string line;
-    getline(inFile, line); 
+    getline(inFile, line);
 
     while (getline(inFile, line))
     {
         stringstream ss(line);
-        string id, name, phone, position, salaryStr, dateHired; 
+        string id, name, phone, position, salaryStr, dateHired;
 
         getline(ss, id, ',');
         getline(ss, name, ',');
         getline(ss, phone, ',');
         getline(ss, position, ',');
         getline(ss, salaryStr, ',');
-        getline(ss, dateHired, ','); 
+        getline(ss, dateHired, ',');
         Employee employee;
         employee.setId(id);
         employee.setName(name);
         employee.setPhone(phone);
         employee.setPosition(position);
         employee.setSalary(stof(salaryStr));
-        employee.setDateHired(dateHired); 
+        employee.setDateHired(dateHired);
 
         employees.push_back(employee);
     }
@@ -620,7 +620,7 @@ void Supermarket::createCart()
     {
         Customer newCustomer;
         cout << "Customer not found. Please enter customer details.\n";
-        newCustomer.in(); 
+        newCustomer.in();
         customers.push_back(newCustomer);
         cout << "New customer added.\n";
     }
@@ -795,13 +795,13 @@ int Supermarket::findBillIndex(const string &id)
         if (bills[i].getInvoiceId() == id)
             return i;
     }
-    return -1; 
+    return -1;
 }
 
 void Supermarket::createBill()
 {
     string customerId;
-    string employeeId; 
+    string employeeId;
 
     cout << "\n=== CREATE BILL ===\n";
     cout << "Enter customer ID: ";
@@ -823,14 +823,14 @@ void Supermarket::createBill()
     cin >> employeeId;
 
     Bill newBill;
-    newBill.generateInvoice(activeCarts[customerId], 0.0f, employeeId); 
+    newBill.generateInvoice(activeCarts[customerId], 0.0f, employeeId);
     newBill.setPaymentMethod(paymentMethod);
 
     float discountRate;
     cout << "Enter discount rate (e.g., 0.1 for 10%): ";
     cin >> discountRate;
-    newBill.setDiscount(discountRate); 
-    newBill.generateInvoice(activeCarts[customerId], discountRate, employeeId); 
+    newBill.setDiscount(discountRate);
+    newBill.generateInvoice(activeCarts[customerId], discountRate, employeeId);
 
     bills.push_back(newBill);
 
@@ -916,14 +916,14 @@ void Supermarket::searchBillsByCustomerId()
 
 Product &Supermarket::getProductById(const string &productId)
 {
-    for (auto &product : inventory) 
+    for (auto &product : inventory)
     {
         if (product.getId() == productId)
         {
             return product;
         }
     }
-    throw runtime_error("Product not found!"); 
+    throw runtime_error("Product not found!");
 }
 
 void Supermarket::payBill()
@@ -1004,11 +1004,11 @@ void Supermarket::writeFileCsv_bill()
 bool compareProduct(const Product &a, const Product &b, int sortType, bool ascending)
 {
     if (sortType == 1)
-    { 
+    {
         return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
     }
     else if (sortType == 2)
-    { 
+    {
         return ascending ? a.getPrice() < b.getPrice() : a.getPrice() > b.getPrice();
     }
     return false;
@@ -1017,15 +1017,15 @@ bool compareProduct(const Product &a, const Product &b, int sortType, bool ascen
 bool compareCustomer(const Customer &a, const Customer &b, int sortType, bool ascending)
 {
     if (sortType == 1)
-    { 
+    {
         return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
     }
     else if (sortType == 2)
-    { 
+    {
         return ascending ? a.getMemberType() < b.getMemberType() : a.getMemberType() > b.getMemberType();
     }
     else if (sortType == 3)
-    { 
+    {
         return ascending ? a.getLoyaltyPoints() < b.getLoyaltyPoints() : a.getLoyaltyPoints() > b.getLoyaltyPoints();
     }
     return false;
