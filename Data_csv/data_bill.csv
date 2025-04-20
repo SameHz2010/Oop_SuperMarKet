@@ -1,2 +1,2 @@
 InvoiceID,CustomerID,Date,PaymentMethod,Subtotal,Discount,Tax,Total
-INV-20250416004926,001,2025-04-16 00:49,Cash,780,78,70.2,772.2
+INV18467,KH001,2025-04-20 18:26,Cash,937,93.7,84.33,927.63
