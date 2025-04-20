@@ -2,5 +2,3 @@ Mở terminal đường dẫn đến Folder chứa file Supermarket_main.cpp -> 
 
 g++ -o main Supermarket_main.cpp "..\Customer_Employee\*.cpp" "..\Product_Cart_Bill\*.cpp" 
 .\main.exe
-
--------------------------------------------------------------------------------------
