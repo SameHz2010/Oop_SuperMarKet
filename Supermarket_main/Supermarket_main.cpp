@@ -2,12 +2,6 @@
 
 Supermarket::Supermarket() {}
 
-string Supermarket::generateId(const string &prefix)
-{
-    // In this example, we are just generating an ID using a prefix and current size of vector as a simple approach.
-    return prefix + to_string(inventory.size() + 1);
-}
-
 int Supermarket::findProductIndex(const string &id)
 {
     for (int i = 0; i < inventory.size(); ++i)
@@ -348,7 +342,7 @@ void Supermarket::writeFileCsv_customer()
         return;
     }
 
-    outFile << "ID,Name,Phone,MemberType,LoyaltyPoints\n"; // Header
+    outFile << "ID,Name,Phone,MemberType,LoyaltyPoints\n";
     for (const auto &customer : customers)
     {
         outFile << customer.getId() << ","
@@ -374,7 +368,7 @@ void Supermarket::readFileCsv_customer()
     }
 
     string line;
-    getline(inFile, line); // Read and discard header
+    getline(inFile, line);
 
     while (getline(inFile, line))
     {
@@ -402,8 +396,6 @@ void Supermarket::readFileCsv_customer()
     cout << "Loaded " << customers.size() << " customers from data_customer.csv." << endl;
     cout << "-------------------------------------------------------------" << endl;
 }
-
-// ======= EMPLOYEE FUNCTIONS =======
 
 void Supermarket::addEmployee()
 {
@@ -551,7 +543,7 @@ void Supermarket::writeFileCsv_employee()
         return;
     }
 
-    outFile << "ID,Name,Phone,Position,Salary,DateHired\n"; // Header including DateHired
+    outFile << "ID,Name,Phone,Position,Salary,DateHired\n"; 
     for (const auto &employee : employees)
     {
         outFile << employee.getId() << ","
@@ -559,7 +551,7 @@ void Supermarket::writeFileCsv_employee()
                 << employee.getPhone() << ","
                 << employee.getPosition() << ","
                 << employee.getSalary() << ","
-                << employee.getDateHired() << "\n"; // Added DateHired
+                << employee.getDateHired() << "\n"; 
     }
 
     outFile.close();
@@ -578,27 +570,26 @@ void Supermarket::readFileCsv_employee()
     }
 
     string line;
-    getline(inFile, line); // Read and discard header
+    getline(inFile, line); 
 
     while (getline(inFile, line))
     {
         stringstream ss(line);
-        string id, name, phone, position, salaryStr, dateHired; // Added dateHired
+        string id, name, phone, position, salaryStr, dateHired; 
 
         getline(ss, id, ',');
         getline(ss, name, ',');
         getline(ss, phone, ',');
         getline(ss, position, ',');
         getline(ss, salaryStr, ',');
-        getline(ss, dateHired, ','); // Read dateHired
-
+        getline(ss, dateHired, ','); 
         Employee employee;
         employee.setId(id);
         employee.setName(name);
         employee.setPhone(phone);
         employee.setPosition(position);
         employee.setSalary(stof(salaryStr));
-        employee.setDateHired(dateHired); // Set dateHired
+        employee.setDateHired(dateHired); 
 
         employees.push_back(employee);
     }
@@ -615,7 +606,6 @@ void Supermarket::createCart()
     cout << "Enter Customer ID to create a cart: ";
     getline(cin >> ws, customerId);
 
-    // Kiểm tra xem khách hàng có tồn tại không
     bool customerExists = false;
     for (const auto &customer : customers)
     {
@@ -628,15 +618,13 @@ void Supermarket::createCart()
 
     if (!customerExists)
     {
-        // Tạo khách hàng mới (yêu cầu thêm thông tin)
         Customer newCustomer;
         cout << "Customer not found. Please enter customer details.\n";
-        newCustomer.in(); // Thu thập thông tin từ người dùng
+        newCustomer.in(); 
         customers.push_back(newCustomer);
         cout << "New customer added.\n";
     }
 
-    // Tiếp tục tạo giỏ hàng
     if (activeCarts.find(customerId) != activeCarts.end())
     {
         cout << "-------------------------------------------------------------" << endl;
@@ -807,19 +795,18 @@ int Supermarket::findBillIndex(const string &id)
         if (bills[i].getInvoiceId() == id)
             return i;
     }
-    return -1; // Không tìm thấy
+    return -1; 
 }
 
 void Supermarket::createBill()
 {
     string customerId;
-    string employeeId; // Thêm biến employeeId
+    string employeeId; 
 
     cout << "\n=== CREATE BILL ===\n";
     cout << "Enter customer ID: ";
     cin >> customerId;
 
-    // Kiểm tra giỏ hàng tồn tại và không rỗng
     if (activeCarts.find(customerId) == activeCarts.end() || activeCarts[customerId].isEmpty())
     {
         cout << "-------------------------------------------------------------" << endl;
@@ -828,41 +815,29 @@ void Supermarket::createBill()
         return;
     }
 
-    // Lấy thông tin phương thức thanh toán
     string paymentMethod;
     cout << "Enter payment method (Cash/Card): ";
     cin >> paymentMethod;
 
-    // Thêm bước nhập employeeId
     cout << "Enter employee ID: ";
     cin >> employeeId;
 
-    // Tạo hóa đơn mới với thông tin từ giỏ hàng
     Bill newBill;
-    newBill.generateInvoice(activeCarts[customerId], 0.0f, employeeId); // Giảm giá ban đầu là 0
-
-    // Đặt phương thức thanh toán cho hóa đơn
+    newBill.generateInvoice(activeCarts[customerId], 0.0f, employeeId); 
     newBill.setPaymentMethod(paymentMethod);
 
-    // Áp dụng discount cho hóa đơn
     float discountRate;
     cout << "Enter discount rate (e.g., 0.1 for 10%): ";
     cin >> discountRate;
-    newBill.setDiscount(discountRate); // Áp dụng discount vào Bill
+    newBill.setDiscount(discountRate); 
+    newBill.generateInvoice(activeCarts[customerId], discountRate, employeeId); 
 
-    // Tính lại hóa đơn với discount mới
-    newBill.generateInvoice(activeCarts[customerId], discountRate, employeeId); // Gọi lại với discount mới
-
-    // Lưu hóa đơn vào danh sách hóa đơn
     bills.push_back(newBill);
 
-    // Hiển thị hóa đơn ra màn hình
     cout << "-------------------------------------------------------------" << endl;
     cout << "\nInvoice created successfully!\n";
     newBill.out();
     cout << "-------------------------------------------------------------" << endl;
-
-    // Sau khi tạo hóa đơn, giỏ hàng vẫn không bị xóa, vì yêu cầu là giữ lại giỏ hàng để tái sử dụng
     cout << "\nCart remains for future use.\n";
 }
 
@@ -934,21 +909,21 @@ void Supermarket::searchBillsByCustomerId()
         {
             bill.out();
             cout << "-----------------------------\n";
-            pause(); // Nếu bạn có hàm pause() thì giữ lại, không thì xóa dòng này
+            pause();
         }
     }
 }
 
 Product &Supermarket::getProductById(const string &productId)
 {
-    for (auto &product : inventory) // Giả sử bạn có vector `products` chứa các sản phẩm trong kho
+    for (auto &product : inventory) 
     {
         if (product.getId() == productId)
         {
             return product;
         }
     }
-    throw runtime_error("Product not found!"); // Nếu không tìm thấy
+    throw runtime_error("Product not found!"); 
 }
 
 void Supermarket::payBill()
@@ -958,7 +933,6 @@ void Supermarket::payBill()
     cout << "Enter invoice ID: ";
     cin >> invoiceId;
 
-    // Tìm hóa đơn theo ID
     auto it = find_if(bills.begin(), bills.end(), [&invoiceId](const Bill &bill)
                       { return bill.getInvoiceId() == invoiceId; });
 
@@ -972,7 +946,6 @@ void Supermarket::payBill()
 
     Bill &billToPay = *it;
 
-    // Cập nhật kho hàng
     for (const auto &item : billToPay.getItems())
     {
         try
@@ -992,7 +965,6 @@ void Supermarket::payBill()
         }
     }
 
-    // Xóa giỏ hàng sau khi thanh toán
     string customerId = billToPay.getCustomerId();
     activeCarts[customerId].clear();
 
@@ -1032,11 +1004,11 @@ void Supermarket::writeFileCsv_bill()
 bool compareProduct(const Product &a, const Product &b, int sortType, bool ascending)
 {
     if (sortType == 1)
-    { // Sắp xếp theo ID
+    { 
         return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
     }
     else if (sortType == 2)
-    { // Sắp xếp theo Price
+    { 
         return ascending ? a.getPrice() < b.getPrice() : a.getPrice() > b.getPrice();
     }
     return false;
@@ -1045,15 +1017,15 @@ bool compareProduct(const Product &a, const Product &b, int sortType, bool ascen
 bool compareCustomer(const Customer &a, const Customer &b, int sortType, bool ascending)
 {
     if (sortType == 1)
-    { // Sắp xếp theo ID
+    { 
         return ascending ? a.getId() < b.getId() : a.getId() > b.getId();
     }
     else if (sortType == 2)
-    { // Sắp xếp theo MemberType
+    { 
         return ascending ? a.getMemberType() < b.getMemberType() : a.getMemberType() > b.getMemberType();
     }
     else if (sortType == 3)
-    { // Sắp xếp theo LoyaltyPoints
+    { 
         return ascending ? a.getLoyaltyPoints() < b.getLoyaltyPoints() : a.getLoyaltyPoints() > b.getLoyaltyPoints();
     }
     return false;
@@ -1068,7 +1040,7 @@ int getPositionPriority(const std::string &position, const std::vector<std::stri
             return i;
         }
     }
-    return -1; // Trả về -1 nếu không tìm thấy
+    return -1;
 }
 
 int dateToInt(const std::string &date)
