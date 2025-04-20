@@ -3,11 +3,10 @@
 // Constructor
 Customer::Customer()
 {
-    memberType = "Regular"; // Mặc định là khách hàng thông thường
+    memberType = "Regular";
     loyaltyPoints = 0;
 }
 
-// Nhập thông tin khách hàng
 void Customer::in()
 {
     cout << "ID: ";
@@ -23,27 +22,21 @@ void Customer::in()
     cin >> loyaltyPoints;
 }
 
-// Xuất thông tin khách hàng
 void Customer::out() const
 {
-    cout << "ID: " << id << endl;
-    cout << "Name: " << name << endl;
-    cout << "Phone number: " << phone << endl;
-    cout << "Member type: " << memberType << endl;
-    cout << "Loyalty points: " << loyaltyPoints << endl;
+    cout << left << setw(10) << id << setw(20) << name << setw(15) << phone
+         << setw(15) << memberType << setw(10) << loyaltyPoints << endl;
 }
 
-// Trả về mức giảm giá dựa trên loại thành viên
 float Customer::getDiscountRate() const
 {
     if (memberType == "VIP")
     {
-        return 0.1f; // Giảm 10%
+        return 0.1f;
     }
-    return 0.0f; // Không giảm
+    return 0.0f;
 }
 
-// Cộng thêm điểm tích lũy
 void Customer::addLoyaltyPoints(int points)
 {
     if (points > 0)
@@ -52,25 +45,21 @@ void Customer::addLoyaltyPoints(int points)
     }
 }
 
-// Reset điểm tích lũy về 0
 void Customer::resetLoyaltyPoints()
 {
     loyaltyPoints = 0;
 }
 
-// Getter cho loại thành viên
 string Customer::getMemberType() const
 {
     return memberType;
 }
 
-// Setter cho loại thành viên
 void Customer::setMemberType(const string &type)
 {
     memberType = type;
 }
 
-// Getter cho điểm tích lũy
 int Customer::getLoyaltyPoints() const
 {
     return loyaltyPoints;
