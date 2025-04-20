@@ -14,7 +14,7 @@ void Product::in()
     cin >> id;
 
     cout << "Enter product name: ";
-    cin.ignore(); 
+    cin.ignore();
     getline(cin, name);
 
     cout << "Enter product price: ";
@@ -26,8 +26,8 @@ void Product::in()
 
 void Product::out() const
 {
-    cout << "ID: " << id << ", Name: " << name
-         << ", Price: " << price << ", Quantity: " << quantity << endl;
+    cout << left << setw(10) << id << setw(20) << name
+         << setw(10) << price << setw(10) << quantity << endl;
 }
 
 bool Product::isAvailable() const
@@ -54,7 +54,7 @@ bool Product::reduceQuantity(int amount)
         quantity -= amount;
         return true;
     }
-    cout << "Not enough stock!" << endl; 
+    cout << "Not enough stock!" << endl;
     return false;
 }
 
