@@ -1,0 +1,25 @@
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.Form1.resources
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.csproj.GenerateResource.cache
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.GeneratedMSBuildEditorConfig.editorconfig
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.AssemblyInfoInputs.cache
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.AssemblyInfo.cs
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.csproj.CoreCompileInputs.cache
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.dll
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\refint\SupermarketUI.dll
+G:\My Drive\Study\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.pdb
+E:\Supermarket\SupermarketUI\SupermarketUI\bin\Debug\net9.0-windows\SupermarketUI.exe
+E:\Supermarket\SupermarketUI\SupermarketUI\bin\Debug\net9.0-windows\SupermarketUI.deps.json
+E:\Supermarket\SupermarketUI\SupermarketUI\bin\Debug\net9.0-windows\SupermarketUI.runtimeconfig.json
+E:\Supermarket\SupermarketUI\SupermarketUI\bin\Debug\net9.0-windows\SupermarketUI.dll
+E:\Supermarket\SupermarketUI\SupermarketUI\bin\Debug\net9.0-windows\SupermarketUI.pdb
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.MainForm.resources
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.csproj.GenerateResource.cache
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.GeneratedMSBuildEditorConfig.editorconfig
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.AssemblyInfoInputs.cache
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.AssemblyInfo.cs
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.csproj.CoreCompileInputs.cache
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.dll
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\refint\SupermarketUI.dll
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.pdb
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\SupermarketUI.genruntimeconfig.cache
+E:\Supermarket\SupermarketUI\SupermarketUI\obj\Debug\net9.0-windows\ref\SupermarketUI.dll

@@ -1,0 +1,3 @@
+InvoiceId,CustomerId,Date,PaymentMethod,Items,Discount,Tax,Total
+INV1,KH001,2025-04-18 12:04,Cash,"P012,4",180.00,51.00,1071.00
+INV2,KH003,2025-04-18 12:15,Cash,"P002,3|P007,3",6.00,5.70,119.70
