@@ -225,13 +225,6 @@ void Supermarket::updateProductQuantity()
     }
 }
 
-void Supermarket::pause()
-{
-    cout << "Nhan phim Enter de tiep tuc...";
-    cin.ignore();
-    cin.get();
-}
-
 void Supermarket::addCustomer()
 {
     Customer *customer = new Customer();
@@ -335,7 +328,7 @@ void Supermarket::searchCustomer()
         cout << "Customer not found!\n";
         cout << "-------------------------------------------------------------" << endl;
     }
-    else
+    else if (choice == 2)
     {
         string name;
         cout << "Enter name: ";
@@ -357,6 +350,11 @@ void Supermarket::searchCustomer()
             cout << "No customers found with the given name.\n";
             cout << "-------------------------------------------------------------" << endl;
         }
+    }
+    else
+    {
+        cout << "Enter a valid choice." << endl;
+        cout << "-------------------------------------------------------------" << endl;
     }
 }
 
@@ -432,7 +430,7 @@ void Supermarket::readFileCsv_customer()
     }
 
     string line;
-    getline(inFile, line); // Skip the header line
+    getline(inFile, line);
 
     while (getline(inFile, line))
     {
@@ -445,7 +443,6 @@ void Supermarket::readFileCsv_customer()
         getline(ss, memberType, ',');
         getline(ss, loyaltyPointsStr);
 
-        // Convert loyaltyPointsStr to an integer
         int loyaltyPoints = 0;
         try
         {
@@ -454,7 +451,7 @@ void Supermarket::readFileCsv_customer()
         catch (const exception &e)
         {
             cerr << "Error converting loyalty points for customer with ID " << id << ": " << e.what() << endl;
-            continue; // Skip this customer if there's an error in the data
+            continue;
         }
 
         Customer *customer = new Customer();
@@ -1034,7 +1031,6 @@ void Supermarket::searchBillsByCustomerId()
         {
             bill.out();
             cout << "-----------------------------\n";
-            pause();
         }
     }
 }

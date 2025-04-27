@@ -20,7 +20,6 @@ private:
 
 public:
     Supermarket();
-    void pause();
 
     void addProduct();
     void editProduct();

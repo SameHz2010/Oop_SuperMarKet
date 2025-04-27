@@ -1,6 +1,5 @@
 #include "../Class headers/Customer.h"
 
-// Constructor
 Customer::Customer()
 {
     memberType = "Regular";
